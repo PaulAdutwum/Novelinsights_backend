@@ -1,13 +1,13 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
-import cors from "cors"; // ✅ Ensure Frontend-Backend Communication
+import cors from "cors"; 
 
 const app = express();
 
-// ✅ Enable CORS so frontend can communicate with the backend
+
 app.use(
   cors({
-    origin: "https://your-frontend.vercel.app", // ✅ Replace with your actual frontend URL
+    origin: "https://pauladutwum.vercel.app", 
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
 
-// ✅ Middleware for Logging API Requests
+
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
@@ -46,11 +46,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// ✅ Set Up API Routes
+
 (async () => {
   const server = await registerRoutes(app);
 
-  // ✅ Error Handling Middleware
+  
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
@@ -58,7 +58,7 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // ✅ Define Port (Use `process.env.PORT` for Hosting)
+ 
   const PORT = Number(process.env.PORT) || 3002;
   server.listen(PORT, "0.0.0.0", () => {
     console.log(`🚀 Server running on port ${PORT}`);
